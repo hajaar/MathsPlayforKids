@@ -3,6 +3,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Application Preferences">
         <EditTextPreference
+            android:hint="@string/pref_name_summ"
             android:key="pref_name"
             android:summary="@string/pref_name_summ"
             android:title="@string/pref_name"/>
@@ -13,7 +14,67 @@
             android:title="@string/pref_sound"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="Game Preferences">
-
+        <PreferenceScreen android:title="@string/pref_gt_title">
+            <EditTextPreference
+                android:hint="@string/pref_gt_min_summ"
+                android:inputType="numberSigned"
+                android:key="pref_gt_min"
+                android:summary="@string/pref_gt_min_summ"
+                android:title="@string/pref_gt_min_title" />
+            <EditTextPreference
+                android:hint="@string/pref_gt_max_summ"
+                android:key="pref_gt_max"
+                android:summary="@string/pref_gt_max_summ"
+                android:title="@string/pref_gt_max_title" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/pref_lt_title">
+            <EditTextPreference
+                android:hint="@string/pref_gt_min_summ"
+                android:key="pref_lt_min"
+                android:summary="@string/pref_gt_min_summ"
+                android:title="@string/pref_gt_min_title" />
+            <EditTextPreference
+                android:hint="@string/pref_gt_max_summ"
+                android:key="pref_lt_max"
+                android:summary="@string/pref_gt_max_summ"
+                android:title="@string/pref_gt_max_title" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/pref_between_title">
+            <EditTextPreference
+                android:hint="@string/pref_gt_min_summ"
+                android:key="pref_between_min"
+                android:summary="@string/pref_gt_min_summ"
+                android:title="@string/pref_gt_min_title" />
+            <EditTextPreference
+                android:hint="@string/pref_gt_max_summ"
+                android:key="pref_between_max"
+                android:summary="@string/pref_gt_max_summ"
+                android:title="@string/pref_gt_max_title" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/pref_add_title">
+            <EditTextPreference
+                android:hint="@string/pref_gt_min_summ"
+                android:key="pref_add_min"
+                android:summary="@string/pref_gt_min_summ"
+                android:title="@string/pref_gt_min_title" />
+            <EditTextPreference
+                android:hint="@string/pref_gt_max_summ"
+                android:key="pref_add_max"
+                android:summary="@string/pref_gt_max_summ"
+                android:title="@string/pref_gt_max_title" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/pref_sub_title">
+            <EditTextPreference
+                android:hint="@string/pref_gt_min_summ"
+                android:key="pref_sub_min"
+                android:summary="@string/pref_gt_min_summ"
+                android:title="@string/pref_gt_min_title" />
+            <EditTextPreference
+                android:hint="@string/pref_gt_max_summ"
+                android:key="pref_sub_max"
+                android:summary="@string/pref_gt_max_summ"
+                android:title="@string/pref_gt_max_title" />
+        </PreferenceScreen>
     </PreferenceCategory>
 
 </PreferenceScreen>

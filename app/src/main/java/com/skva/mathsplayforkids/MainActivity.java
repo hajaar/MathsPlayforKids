@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,33 +26,52 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Random;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
+    final int TOTAL_GAMES = 5;
     private int score=0, total_attempts =0;
     private String question ="";
     private int game_type = 0;
-    private int difficulty = 0;
     private int a=0;
-    private int[] choiceArray = new int[4];
+    private int[] choiceArray = new int[TOTAL_GAMES];
     private Spinner spinner1;
     private String childname = "";
     private Boolean soundtoggle = true;
     private Boolean runonce = false;
+    private int[] difficult_min = new int[TOTAL_GAMES];
+    private int[] difficult_max = new int[TOTAL_GAMES];
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Fabric.with(this, new Crashlytics());
+       /* requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);*/
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
+        setContentView(R.layout.activity_main);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         childname = settings.getString("pref_name", "");
         soundtoggle = settings.getBoolean("pref_sound", true);
+        difficult_min[0] = Integer.parseInt(settings.getString("pref_gt_min", "5"));
+        difficult_max[0] = Integer.parseInt(settings.getString("pref_gt_max", "50"));
+        difficult_min[1] = Integer.parseInt(settings.getString("pref_lt_min", "5"));
+        difficult_max[1] = Integer.parseInt(settings.getString("pref_lt_max", "50"));
+        difficult_min[2] = Integer.parseInt(settings.getString("pref_between_min", "5"));
+        difficult_max[2] = Integer.parseInt(settings.getString("pref_between_max", "50"));
+        difficult_min[3] = Integer.parseInt(settings.getString("pref_add_min", "5"));
+        difficult_max[3] = Integer.parseInt(settings.getString("pref_add_max", "50"));
+        difficult_min[4] = Integer.parseInt(settings.getString("pref_sub_min", "5"));
+        difficult_max[4] = Integer.parseInt(settings.getString("pref_sub_max", "50"));
+
+
         ((TextView) findViewById(R.id.child_name)).setText("Hi " + childname);
 
         final Button button1 = (Button) findViewById(R.id.button1);
@@ -117,6 +135,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
         updateScore(0);
         generateQuestion();
+
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -294,8 +313,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         Random r = new Random();
         switch (tmpgame_type) {
             case 0: {
-                int difficulty_max = 50;
-                int difficulty_min = 5;
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
                 int q = r.nextInt(difficulty_max - difficulty_min) + difficulty_min + 1;
                 if (q == difficulty_max) {
                     q = q - 2;
@@ -310,8 +329,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 break;
             }
             case 1: {
-                int difficulty_max = 50;
-                int difficulty_min = 5;
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
                 int q = r.nextInt(difficulty_max - difficulty_min) + difficulty_min + 1;
                 if (q == difficulty_max) {
                     q = q - 2;
@@ -326,8 +345,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 break;
             }
             case 2: {
-                int difficulty_max = 50;
-                int difficulty_min = 5;
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
                 int q = r.nextInt(difficulty_max - difficulty_min) + difficulty_min + 1;
                 if (q == difficulty_max) {
                     q = q - 2;
@@ -343,14 +362,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 break;
             }
             case 3: {
-                int difficulty_max = 10;
-                int difficult_min = 1;
-                int mid = (difficult_min + difficulty_max) / 2;
-                int p = r.nextInt(mid - difficult_min) + difficult_min;
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
+                int mid = (difficulty_min + difficulty_max) / 2;
+                int p = r.nextInt(mid - difficulty_min) + difficulty_min;
                 int q = r.nextInt(difficulty_max - mid) + mid;
                 Log.d("generateQuestion", "p: " + p + " q : " + q);
                 question = p + " + " + q + " ?";
-                choiceArray[0] = p + q + r.nextInt(difficulty_max - difficult_min) + 1;
+                choiceArray[0] = p + q + r.nextInt(difficulty_max - difficulty_min) + 1;
                 choiceArray[1] = q - p + r.nextInt(difficulty_max) - 1;
                 choiceArray[2] = (p + q) / 2;
                 choiceArray[3] = p + q;
@@ -358,14 +377,14 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 break;
             }
             case 4: {
-                int difficulty_max = 10;
-                int difficult_min = 1;
-                int mid = (difficult_min + difficulty_max) / 2;
-                int p = r.nextInt(mid - difficult_min) + difficult_min;
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
+                int mid = (difficulty_min + difficulty_max) / 2;
+                int p = r.nextInt(mid - difficulty_min) + difficulty_min;
                 int q = r.nextInt(difficulty_max - mid) + mid;
                 Log.d("generateQuestion", "p: " + p + " q : " + q);
                 question = q + " - " + p + " ?";
-                choiceArray[0] = q - p + r.nextInt(difficulty_max - difficult_min) + 1;
+                choiceArray[0] = q - p + r.nextInt(difficulty_max - difficulty_min) + 1;
                 choiceArray[1] = p + q;
                 choiceArray[2] = (q - p) / 2;
                 choiceArray[3] = q - p;

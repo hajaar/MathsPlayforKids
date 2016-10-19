@@ -22,11 +22,17 @@
     <string name="action_feedback">Feedback</string>
     <string name="title_activity_settings">Settings</string>
     <string name="pref_name">Name</string>
-    <string name="pref_name_summ">This is the name of your child which will displayed in the application</string>
+    <string name="pref_name_summ">Enter your child \' s name</string>
     <string name="pref_sound">Sound</string>
     <string name="pref_sound_summ">Switch Sound On or Off </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pref_gt_title">Greater Than</string>
+    <string name="pref_gt_min_title">Minimum</string>
+    <string name="pref_gt_min_summ">Minimum value for this game</string>
+    <string name="pref_gt_max_title">Maximum</string>
+    <string name="pref_gt_max_summ">Maximum value for this game</string>
+    <string name="pref_lt_title">Lesser Than</string>
+    <string name="pref_between_title">Between</string>
+    <string name="pref_add_title">Addition</string>
+    <string name="pref_sub_title">Subtraction</string>
 
 </resources>

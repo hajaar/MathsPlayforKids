@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.skva.mathsplayforkids"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.skva.mathsplayforkids">
 
     <application
         android:allowBackup="true"
@@ -25,6 +25,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.skva.mathsplayforkids.MainActivity"/>
         </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="bd8acb775a2f24bb12037b984f405642c2bda43d" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
