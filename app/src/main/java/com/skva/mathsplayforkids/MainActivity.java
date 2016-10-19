@@ -60,6 +60,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         childname = settings.getString("pref_name", "");
         soundtoggle = settings.getBoolean("pref_sound", true);
+        Log.d("wowza", "onCreate: " + settings.getString("pref_gt_min", "1"));
         difficult_min[0] = Integer.parseInt(settings.getString("pref_gt_min", "5"));
         difficult_max[0] = Integer.parseInt(settings.getString("pref_gt_max", "50"));
         difficult_min[1] = Integer.parseInt(settings.getString("pref_lt_min", "5"));

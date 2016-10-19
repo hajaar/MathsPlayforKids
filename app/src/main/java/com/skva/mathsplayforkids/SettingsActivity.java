@@ -46,6 +46,8 @@ public class SettingsActivity extends Activity {
                     PreferenceGroup preferenceGroup = (PreferenceGroup) preference;
                     for (int j = 0; j < preferenceGroup.getPreferenceCount(); ++j) {
                         Preference singlePref = preferenceGroup.getPreference(j);
+                        Log.d("updatepreference", "pref: " + singlePref.getTitle());
+                        Log.d("updatepreference", "key: " + singlePref.hasKey());
                         updatePreference(singlePref, singlePref.getKey());
                     }
                 } else {
@@ -65,8 +67,10 @@ public class SettingsActivity extends Activity {
             if (preference instanceof EditTextPreference) {
                 EditTextPreference editTextPreference = (EditTextPreference) preference;
                 editTextPreference.setSummary(editTextPreference.getText());
-
+                SharedPreferences sharedPrefs = getPreferenceManager().getSharedPreferences();
+                preference.setSummary(sharedPrefs.getString(key, "Default"));
             }
+
         }
     }
 
