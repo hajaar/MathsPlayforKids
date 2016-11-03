@@ -27,19 +27,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-
     OperatorGame operatorGame = new OperatorGame(0, 0);
+    private FirebaseAnalytics mFirebaseAnalytics;
     private Boolean soundtoggle = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Bundle bundle = new Bundle();
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
        /* requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
@@ -98,6 +102,12 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 updateView();
 
                 Log.d("SKIP","skip ");
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Skip");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Skip");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
 
             }
         });
@@ -125,6 +135,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         operatorGame.setGame_type(parent.getSelectedItemPosition());
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Game Type" + parent.getSelectedItemPosition());
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "" + parent.getSelectedItemPosition());
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "list");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         operatorGame.generateQuestion();
         updateView();
     }
@@ -158,12 +173,22 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             image = R.drawable.happysmiley;
             text = "You Are Right!";
             time = 1000;
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Correct Answer");
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Correct");
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         } else {
             sound = R.raw.wrongbuzzer;
             image = R.drawable.worriedsmiley;
             text = "Try Again";
             time = 500;
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Wrong Answer");
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Wrong");
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         }
         if (soundtoggle) {
             final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), sound);
@@ -239,6 +264,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         dialog.setContentView(R.layout.coach_mark);
         dialog.setCanceledOnTouchOutside(true);
         //for dismissing anywhere you touch
+
         View masterView = dialog.findViewById(R.id.coach_mark_master_view);
         masterView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +273,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             }
         });
         dialog.show();
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Help");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Help");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
 
