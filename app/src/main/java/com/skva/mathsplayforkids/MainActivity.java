@@ -2,11 +2,9 @@ package com.skva.mathsplayforkids;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -44,7 +42,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
-       /* requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_main);
@@ -60,7 +58,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         operatorGame.setDifficult_max(3, Integer.parseInt(settings.getString("pref_add_max", "50")));
         operatorGame.setDifficult_min(4, Integer.parseInt(settings.getString("pref_sub_min", "5")));
         operatorGame.setDifficult_max(4, Integer.parseInt(settings.getString("pref_sub_max", "50")));
-        ((TextView) findViewById(R.id.child_name)).setText("Hi " + settings.getString("pref_name", ""));
         final Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -235,24 +232,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        switch(id) {
-            case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-
-                break;
-            case R.id.action_help:
-                onCoachMark();
-                break;
-            case R.id.action_feedback:
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto","kartik.narayanan@gmail.com", null));
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Maths Play for Kids");
-                startActivity(Intent.createChooser(emailIntent, "Send email..."));
-                break;
-
-        }
 
         return super.onOptionsItemSelected(item);
     }
