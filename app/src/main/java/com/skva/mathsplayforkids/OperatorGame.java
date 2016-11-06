@@ -11,19 +11,24 @@ import java.util.Random;
 
 public class OperatorGame {
 
-    final int TOTAL_GAMES = 5;
+    final int TOTAL_GAMES = 7;
+    private int TypeofGame = 0;
     private int score = 0;
     private int total_attempts = 0;
     private String question = "";
     private int game_type = 0;
-    private int[] choiceArray = new int[TOTAL_GAMES];
+    private int[] choiceArray = new int[4];
     private int[] difficult_min = new int[TOTAL_GAMES];
     private int[] difficult_max = new int[TOTAL_GAMES];
-
     public OperatorGame(int score, int total_attempts) {
         this.score = score;
         this.total_attempts = total_attempts;
 
+
+    }
+
+    public void setTypeofGame(int typeofGame) {
+        TypeofGame = typeofGame;
     }
 
     public String getQuestion() {
@@ -47,10 +52,19 @@ public class OperatorGame {
     }
 
     public void setGame_type(int game_type) {
-        if (game_type == 5) {
-            this.game_type = 100;
+        if (TypeofGame == 0) {
+            if (game_type == 4) {
+                this.game_type = 100;
+            } else {
+                this.game_type = game_type;
+            }
         } else {
-            this.game_type = game_type;
+            if (game_type == 3) {
+                this.game_type = 101;
+            } else {
+                this.game_type = game_type + 4;
+            }
+
         }
     }
 
@@ -98,14 +112,18 @@ public class OperatorGame {
     public void generateQuestion() {
         Random r = new Random();
         Log.d("generateQuestion", "" + game_type);
-        if (game_type != 100) {
-            generateQuestionBasedOnGameType(game_type);
-        } else
-
-        {
-            generateQuestionBasedOnGameType(r.nextInt(5));
+        switch (game_type) {
+            case 100: {
+                generateQuestionBasedOnGameType(r.nextInt(4));
+                break;
+            }
+            case 101: {
+                generateQuestionBasedOnGameType(r.nextInt(3) + 4);
+                break;
+            }
+            default:
+                generateQuestionBasedOnGameType(game_type);
         }
-        incrementTotal_attempts();
     }
 
 
@@ -160,7 +178,38 @@ public class OperatorGame {
                 Log.d("generateQuestion", "a1: " + choiceArray[0] + " a2: " + choiceArray[1] + " a3: " + choiceArray[2] + " a4: " + choiceArray[3]);
                 break;
             }
+
             case 2: {
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
+                int mid = (difficulty_min + difficulty_max) / 2;
+                int p = r.nextInt(mid - difficulty_min) + difficulty_min;
+                int q = r.nextInt(difficulty_max - mid) + mid;
+                Log.d("generateQuestion", "p: " + p + " q : " + q);
+                question = p + " + " + q + " ?";
+                choiceArray[0] = p + q + r.nextInt(difficulty_max - difficulty_min) + 1;
+                choiceArray[1] = q - p + r.nextInt(difficulty_max) - 1;
+                choiceArray[2] = (p + q) / 2;
+                choiceArray[3] = p + q;
+                Log.d("generateQuestion", "a1: " + choiceArray[0] + " a2: " + choiceArray[1] + " a3: " + choiceArray[2] + " a4: " + choiceArray[3]);
+                break;
+            }
+            case 3: {
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
+                int mid = (difficulty_min + difficulty_max) / 2;
+                int p = r.nextInt(mid - difficulty_min) + difficulty_min;
+                int q = r.nextInt(difficulty_max - mid) + mid;
+                Log.d("generateQuestion", "p: " + p + " q : " + q);
+                question = q + " - " + p + " ?";
+                choiceArray[0] = q - p + r.nextInt(difficulty_max - difficulty_min) + 1;
+                choiceArray[1] = p + q;
+                choiceArray[2] = (q - p) / 2;
+                choiceArray[3] = q - p;
+                Log.d("generateQuestion", "a1: " + choiceArray[0] + " a2: " + choiceArray[1] + " a3: " + choiceArray[2] + " a4: " + choiceArray[3]);
+                break;
+            }
+            case 6: {
                 int difficulty_max = difficult_max[tmpgame_type];
                 int difficulty_min = difficult_min[tmpgame_type];
                 int q = r.nextInt(difficulty_max - difficulty_min) + difficulty_min + 1;
@@ -177,33 +226,31 @@ public class OperatorGame {
                 Log.d("generateQuestion", "a1: " + choiceArray[0] + " a2: " + choiceArray[1] + " a3: " + choiceArray[2] + " a4: " + choiceArray[3]);
                 break;
             }
-            case 3: {
-                int difficulty_max = difficult_max[tmpgame_type];
-                int difficulty_min = difficult_min[tmpgame_type];
-                int mid = (difficulty_min + difficulty_max) / 2;
-                int p = r.nextInt(mid - difficulty_min) + difficulty_min;
-                int q = r.nextInt(difficulty_max - mid) + mid;
-                Log.d("generateQuestion", "p: " + p + " q : " + q);
-                question = p + " + " + q + " ?";
-                choiceArray[0] = p + q + r.nextInt(difficulty_max - difficulty_min) + 1;
-                choiceArray[1] = q - p + r.nextInt(difficulty_max) - 1;
-                choiceArray[2] = (p + q) / 2;
-                choiceArray[3] = p + q;
-                Log.d("generateQuestion", "a1: " + choiceArray[0] + " a2: " + choiceArray[1] + " a3: " + choiceArray[2] + " a4: " + choiceArray[3]);
-                break;
-            }
             case 4: {
                 int difficulty_max = difficult_max[tmpgame_type];
                 int difficulty_min = difficult_min[tmpgame_type];
-                int mid = (difficulty_min + difficulty_max) / 2;
-                int p = r.nextInt(mid - difficulty_min) + difficulty_min;
-                int q = r.nextInt(difficulty_max - mid) + mid;
+                int p = r.nextInt(5) + 1;
+                int q = r.nextInt(difficulty_max / 2);
                 Log.d("generateQuestion", "p: " + p + " q : " + q);
-                question = q + " - " + p + " ?";
-                choiceArray[0] = q - p + r.nextInt(difficulty_max - difficulty_min) + 1;
-                choiceArray[1] = p + q;
-                choiceArray[2] = (q - p) / 2;
-                choiceArray[3] = q - p;
+                question = " " + q + " " + (q + p) + " " + (q + p + p) + " ___ " + " ?";
+                choiceArray[0] = q + p * 4;
+                choiceArray[1] = q + 2 * p - 1;
+                choiceArray[2] = q * 2;
+                choiceArray[3] = q + p * 3;
+                Log.d("generateQuestion", "a1: " + choiceArray[0] + " a2: " + choiceArray[1] + " a3: " + choiceArray[2] + " a4: " + choiceArray[3]);
+                break;
+            }
+            case 5: {
+                int difficulty_max = difficult_max[tmpgame_type];
+                int difficulty_min = difficult_min[tmpgame_type];
+                int p = r.nextInt(5) + 1;
+                int q = r.nextInt(difficulty_max / 2) + 5 * p;
+                Log.d("generateQuestion", "p: " + p + " q : " + q);
+                question = " " + q + " " + (q - p) + " " + (q - p - p) + " ___ " + " ?";
+                choiceArray[0] = q - p * 4;
+                choiceArray[1] = q - 2 * p - 1;
+                choiceArray[2] = p * 2;
+                choiceArray[3] = q - p * 3;
                 Log.d("generateQuestion", "a1: " + choiceArray[0] + " a2: " + choiceArray[1] + " a3: " + choiceArray[2] + " a4: " + choiceArray[3]);
                 break;
             }

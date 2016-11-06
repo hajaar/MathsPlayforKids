@@ -8,12 +8,18 @@
     <string name="musicswitch">Music</string>
     <string name="difficultyswitch">Difficulty</string>
     <string-array
-        name="game_list">
+        name="operator_game_list">
         <item> &gt; (Greater Than)</item>
         <item> &lt; (Lesser Than)</item>
-        <item> Between</item>
         <item> + (Addition)</item>
         <item> - (Subtraction)</item>
+        <item> Random </item>
+    </string-array>
+    <string-array
+        name="patterns_game_list">
+        <item> Next </item>
+        <item> Before </item>
+        <item> Between</item>
         <item> Random </item>
     </string-array>
     <string name="feedback">Feed back</string>
@@ -22,6 +28,7 @@
     <string name="action_feedback">Feedback</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_main">Operators</string>
+    <string name="title_patterns_main">Patterns</string>
     <string name="pref_name">Name</string>
     <string name="pref_name_summ">Enter your child \' s name</string>
     <string name="pref_sound">Sound</string>
@@ -36,7 +43,7 @@
     <string name="pref_add_title">Addition</string>
     <string name="pref_sub_title">Subtraction</string>
     <string name="new_operators_game">Operators Game</string>
-    <string name="new_counting_game">Counting Game</string>
+    <string name="new_patterns_game">Patterns Game</string>
     <string name="exit_game">Exit</string>
     <string name="statistics">Statistics</string>
     <string name="skip">Skip</string>

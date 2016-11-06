@@ -55,14 +55,14 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/new_counting_game"
+            android:id="@+id/new_patterns_game"
             style="@style/LabelText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/skipcustomborder"
             android:gravity="center"
-            android:text="@string/new_counting_game"/>
+            android:text="@string/new_patterns_game"/>
 
         <View
             android:layout_width="match_parent"

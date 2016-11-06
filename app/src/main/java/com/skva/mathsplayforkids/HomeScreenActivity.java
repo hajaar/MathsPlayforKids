@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -30,7 +31,8 @@ public class HomeScreenActivity extends Activity {
         setContentView(R.layout.activity_home_screen);
         refreshName();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        final Intent mainintent = new Intent(this, MainActivity.class);
+        final Intent operatorsintent = new Intent(this, MainActivity.class);
+        final Intent patternsintent = new Intent(this, MainActivity.class);
         final Intent settingsintent = new Intent(this, SettingsActivity.class);
         final Button button1 = (Button) findViewById(R.id.new_operator_game);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +43,8 @@ public class HomeScreenActivity extends Activity {
                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Operator Game");
                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-                startActivity(mainintent);
+                operatorsintent.putExtra("TypeofGame", 0);
+                startActivity(operatorsintent);
             }
         });
         final Button button2 = (Button) findViewById(R.id.settings);
@@ -50,7 +53,7 @@ public class HomeScreenActivity extends Activity {
                 Log.d("ButtonClick", "Settings");
                 Bundle bundle = new Bundle();
                 bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Settings");
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Settingd");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Settings");
                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 startActivity(settingsintent);
@@ -78,6 +81,31 @@ public class HomeScreenActivity extends Activity {
                         "mailto", "kartik.narayanan@gmail.com", null));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Maths Play for Kids");
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
+            }
+        });
+        final Button button5 = (Button) findViewById(R.id.new_patterns_game);
+        button5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("ButtonClick", "Counting Game");
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Patterns Game");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Patterns Game");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                patternsintent.putExtra("TypeofGame", 1);
+                startActivity(patternsintent);
+            }
+        });
+        final Button button6 = (Button) findViewById(R.id.statistics);
+        button6.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("ButtonClick", "Statistics");
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Statistics");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Statistics");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+                Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_LONG).show();
             }
         });
     }

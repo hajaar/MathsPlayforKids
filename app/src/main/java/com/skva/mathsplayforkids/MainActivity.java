@@ -30,8 +30,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends Activity implements AdapterView.OnItemSelectedListener {
-
     OperatorGame operatorGame = new OperatorGame(0, 0);
+    private int TypeofGame = 0;
     private FirebaseAnalytics mFirebaseAnalytics;
     private Boolean soundtoggle = true;
 
@@ -42,22 +42,29 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
+        TypeofGame = getIntent().getExtras().getInt("TypeofGame");
+
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_main);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         soundtoggle = settings.getBoolean("pref_sound", true);
+        operatorGame.setTypeofGame(TypeofGame);
         operatorGame.setDifficult_min(0, Integer.parseInt(settings.getString("pref_gt_min", "5")));
         operatorGame.setDifficult_max(0, Integer.parseInt(settings.getString("pref_gt_max", "50")));
         operatorGame.setDifficult_min(1, Integer.parseInt(settings.getString("pref_lt_min", "5")));
         operatorGame.setDifficult_max(1, Integer.parseInt(settings.getString("pref_lt_max", "50")));
-        operatorGame.setDifficult_min(2, Integer.parseInt(settings.getString("pref_between_min", "5")));
-        operatorGame.setDifficult_max(2, Integer.parseInt(settings.getString("pref_between_max", "50")));
-        operatorGame.setDifficult_min(3, Integer.parseInt(settings.getString("pref_add_min", "5")));
-        operatorGame.setDifficult_max(3, Integer.parseInt(settings.getString("pref_add_max", "50")));
-        operatorGame.setDifficult_min(4, Integer.parseInt(settings.getString("pref_sub_min", "5")));
-        operatorGame.setDifficult_max(4, Integer.parseInt(settings.getString("pref_sub_max", "50")));
+        operatorGame.setDifficult_min(4, Integer.parseInt(settings.getString("pref_between_min", "5")));
+        operatorGame.setDifficult_max(4, Integer.parseInt(settings.getString("pref_between_max", "50")));
+        operatorGame.setDifficult_min(2, Integer.parseInt(settings.getString("pref_add_min", "5")));
+        operatorGame.setDifficult_max(2, Integer.parseInt(settings.getString("pref_add_max", "50")));
+        operatorGame.setDifficult_min(3, Integer.parseInt(settings.getString("pref_sub_min", "5")));
+        operatorGame.setDifficult_max(3, Integer.parseInt(settings.getString("pref_sub_max", "50")));
+        operatorGame.setDifficult_min(5, Integer.parseInt(settings.getString("pref_next_min", "1")));
+        operatorGame.setDifficult_max(5, Integer.parseInt(settings.getString("pref_next_max", "100")));
+        operatorGame.setDifficult_min(6, Integer.parseInt(settings.getString("pref_before_min", "10")));
+        operatorGame.setDifficult_max(6, Integer.parseInt(settings.getString("pref_before_max", "100")));
         final Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -109,8 +116,18 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             }
         });
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
+        int i = 0;
+        if (TypeofGame == 0) {
+
+            i = R.array.operator_game_list;
+            this.setTitle(R.string.title_activity_main);
+        } else {
+
+            i = R.array.patterns_game_list;
+            this.setTitle(R.string.title_patterns_main);
+        }
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.game_list, R.layout.custom_spinner_item);
+                i, R.layout.custom_spinner_item);
         adapter.setDropDownViewResource(R.layout.custom_spinner_list_item);
         spinner1.setAdapter(adapter);
 
