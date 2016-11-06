@@ -126,7 +126,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/buttonshape"
-                android:gravity="center"/>
+                android:ellipsize="none"
+                android:gravity="center"
+                android:scrollHorizontally="false"/>
 
             <Button
                 android:id="@+id/button3"
@@ -135,7 +137,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/buttonshape"
-                android:gravity="center"/>
+                android:ellipsize="none"
+                android:gravity="center"
+                android:scrollHorizontally="false"/>
 
         </LinearLayout>
 
@@ -152,7 +156,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/buttonshape"
-                />
+                android:ellipsize="none"
+                android:scrollHorizontally="false"/>
 
 
             <Button
@@ -161,7 +166,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/buttonshape"/>
+                android:background="@drawable/buttonshape"
+                android:ellipsize="none"
+                android:scrollHorizontally="false"/>
         </LinearLayout>
     </LinearLayout>
 
