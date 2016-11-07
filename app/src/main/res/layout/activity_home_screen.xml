@@ -70,14 +70,14 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/statistics"
+            android:id="@+id/new_order_games"
             style="@style/LabelText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/skipcustomborder"
             android:gravity="center"
-            android:text="@string/statistics"/>
+            android:text="@string/new_order_games"/>
 
         <View
             android:layout_width="match_parent"

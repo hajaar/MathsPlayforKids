@@ -42,8 +42,27 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle bundle = new Bundle();
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
-        TypeofGame = getIntent().getExtras().getInt("TypeofGame");
-
+        TypeofGame = getIntent().getExtras().getInt("TypeofGame", 0);
+        int tmp_list_type = 0;
+        String tmp_title = "";
+        switch (TypeofGame) {
+            case 0: {
+                tmp_list_type = R.array.operator_game_list;
+                tmp_title = getString(R.string.title_activity_main);
+                break;
+            }
+            case 1: {
+                tmp_list_type = R.array.patterns_game_list;
+                tmp_title = getString(R.string.title_patterns_main);
+                break;
+            }
+            case 2: {
+                tmp_list_type = R.array.orders_game_list;
+                tmp_title = getString(R.string.title_orders_main);
+                break;
+            }
+        }
+        this.setTitle(tmp_title);
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
@@ -65,12 +84,20 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         operatorGame.setDifficult_max(5, Integer.parseInt(settings.getString("pref_next_max", "100")));
         operatorGame.setDifficult_min(6, Integer.parseInt(settings.getString("pref_before_min", "10")));
         operatorGame.setDifficult_max(6, Integer.parseInt(settings.getString("pref_before_max", "100")));
+        operatorGame.setDifficult_min(7, Integer.parseInt(settings.getString("pref_before_min", "10")));
+        operatorGame.setDifficult_max(7, Integer.parseInt(settings.getString("pref_before_max", "100")));
+        operatorGame.setDifficult_min(8, Integer.parseInt(settings.getString("pref_before_min", "10")));
+        operatorGame.setDifficult_max(8, Integer.parseInt(settings.getString("pref_before_max", "100")));
+        operatorGame.setDifficult_min(9, Integer.parseInt(settings.getString("pref_before_min", "10")));
+        operatorGame.setDifficult_max(9, Integer.parseInt(settings.getString("pref_before_max", "100")));
+        operatorGame.setDifficult_min(10, Integer.parseInt(settings.getString("pref_before_min", "10")));
+        operatorGame.setDifficult_max(10, Integer.parseInt(settings.getString("pref_before_max", "100")));
         final Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 int a = Integer.parseInt(button1.getText().toString());
-                showSucessFailure(operatorGame.validateAnswer(a));
+                showSuccessFailure(operatorGame.validateAnswer(a));
                 Log.d("BUTTON1onClick","a: "+a);
             }
         });
@@ -79,7 +106,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             public void onClick(View v) {
                 int a = Integer.parseInt(button2.getText().toString());
                 Log.d("BUTTON2onClick","a: "+a);
-                showSucessFailure(operatorGame.validateAnswer(a));
+                showSuccessFailure(operatorGame.validateAnswer(a));
             }
         });
         final Button button3 = (Button) findViewById(R.id.button3);
@@ -87,7 +114,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             public void onClick(View v) {
                 int a = Integer.parseInt(button3.getText().toString());
                 Log.d("BUTTON3onClick","a: "+a);
-                showSucessFailure(operatorGame.validateAnswer(a));
+                showSuccessFailure(operatorGame.validateAnswer(a));
             }
         });
         final Button button4 = (Button) findViewById(R.id.button4);
@@ -95,7 +122,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             public void onClick(View v) {
                 int a = Integer.parseInt(button4.getText().toString());
                 Log.d("BUTTON4onClick","a: "+a);
-                showSucessFailure(operatorGame.validateAnswer(a));
+                showSuccessFailure(operatorGame.validateAnswer(a));
             }
         });
         final Button button5 = (Button) findViewById(R.id.skip);
@@ -115,19 +142,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
             }
         });
+
+
         Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
-        int i = 0;
-        if (TypeofGame == 0) {
-
-            i = R.array.operator_game_list;
-            this.setTitle(R.string.title_activity_main);
-        } else {
-
-            i = R.array.patterns_game_list;
-            this.setTitle(R.string.title_patterns_main);
-        }
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                i, R.layout.custom_spinner_item);
+                tmp_list_type, R.layout.custom_spinner_item);
         adapter.setDropDownViewResource(R.layout.custom_spinner_list_item);
         spinner1.setAdapter(adapter);
 
@@ -163,23 +182,15 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     }
 
     private void updateView() {
-        int tempArray[] = new int[4];
-        for (int i = 0; i <= 3; i++) {
-            int j = (int)Math.floor(Math.random() * (i + 1));
-            if (j!=i) {
-                tempArray[i] = tempArray[j];
-            }
-            tempArray[j] = operatorGame.getChoiceArray(i);
-        }
         ((TextView) findViewById(R.id.score)).setText(" Score: " + operatorGame.getScore());
         ((TextView) findViewById(R.id.question)).setText(operatorGame.getQuestion());
-        ((Button) findViewById(R.id.button1)).setText(Integer.toString(tempArray[0]));
-        ((Button) findViewById(R.id.button2)).setText(Integer.toString(tempArray[1]));
-        ((Button) findViewById(R.id.button3)).setText(Integer.toString(tempArray[2]));
-        ((Button) findViewById(R.id.button4)).setText(Integer.toString(tempArray[3]));
+        ((Button) findViewById(R.id.button1)).setText(Integer.toString(operatorGame.getRandomizedArray(0)));
+        ((Button) findViewById(R.id.button2)).setText(Integer.toString(operatorGame.getRandomizedArray(1)));
+        ((Button) findViewById(R.id.button3)).setText(Integer.toString(operatorGame.getRandomizedArray(2)));
+        ((Button) findViewById(R.id.button4)).setText(Integer.toString(operatorGame.getRandomizedArray(3)));
     }
 
-    private void showSucessFailure(boolean success) {
+    private void showSuccessFailure(boolean success) {
         int sound, image, time;
         String text;
         if (success) {

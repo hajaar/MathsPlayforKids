@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -33,6 +32,7 @@ public class HomeScreenActivity extends Activity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         final Intent operatorsintent = new Intent(this, MainActivity.class);
         final Intent patternsintent = new Intent(this, MainActivity.class);
+        final Intent ordersintent = new Intent(this, MainActivity.class);
         final Intent settingsintent = new Intent(this, SettingsActivity.class);
         final Button button1 = (Button) findViewById(R.id.new_operator_game);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +86,7 @@ public class HomeScreenActivity extends Activity {
         final Button button5 = (Button) findViewById(R.id.new_patterns_game);
         button5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("ButtonClick", "Counting Game");
+                Log.d("ButtonClick", "Patterns Game");
                 Bundle bundle = new Bundle();
                 bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Patterns Game");
                 bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Patterns Game");
@@ -96,16 +96,17 @@ public class HomeScreenActivity extends Activity {
                 startActivity(patternsintent);
             }
         });
-        final Button button6 = (Button) findViewById(R.id.statistics);
+        final Button button6 = (Button) findViewById(R.id.new_order_games);
         button6.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("ButtonClick", "Statistics");
+                Log.d("ButtonClick", "Orders Game");
                 Bundle bundle = new Bundle();
-                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Statistics");
-                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Statistics");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Orders Game");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Orders Game");
                 bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-                Toast.makeText(getApplicationContext(), "Coming Soon", Toast.LENGTH_LONG).show();
+                ordersintent.putExtra("TypeofGame", 2);
+                startActivity(ordersintent);
             }
         });
     }
