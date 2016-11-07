@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                int a = Integer.parseInt(button1.getText().toString());
+                String a = (button1.getText().toString());
                 showSuccessFailure(operatorGame.validateAnswer(a));
                 Log.d("BUTTON1onClick","a: "+a);
             }
@@ -104,24 +104,24 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         final Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int a = Integer.parseInt(button2.getText().toString());
-                Log.d("BUTTON2onClick","a: "+a);
+                String a = (button2.getText().toString());
+                Log.d("BUTTON2onClick", "a: " + a);
                 showSuccessFailure(operatorGame.validateAnswer(a));
             }
         });
         final Button button3 = (Button) findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int a = Integer.parseInt(button3.getText().toString());
-                Log.d("BUTTON3onClick","a: "+a);
+                String a = (button3.getText().toString());
+                Log.d("BUTTON3onClick", "a: " + a);
                 showSuccessFailure(operatorGame.validateAnswer(a));
             }
         });
         final Button button4 = (Button) findViewById(R.id.button4);
         button4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int a = Integer.parseInt(button4.getText().toString());
-                Log.d("BUTTON4onClick","a: "+a);
+                String a = (button4.getText().toString());
+                Log.d("BUTTON4onClick", "a: " + a);
                 showSuccessFailure(operatorGame.validateAnswer(a));
             }
         });
@@ -184,10 +184,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
     private void updateView() {
         ((TextView) findViewById(R.id.score)).setText(" Score: " + operatorGame.getScore());
         ((TextView) findViewById(R.id.question)).setText(operatorGame.getQuestion());
-        ((Button) findViewById(R.id.button1)).setText(Integer.toString(operatorGame.getRandomizedArray(0)));
-        ((Button) findViewById(R.id.button2)).setText(Integer.toString(operatorGame.getRandomizedArray(1)));
-        ((Button) findViewById(R.id.button3)).setText(Integer.toString(operatorGame.getRandomizedArray(2)));
-        ((Button) findViewById(R.id.button4)).setText(Integer.toString(operatorGame.getRandomizedArray(3)));
+        ((Button) findViewById(R.id.button1)).setText((operatorGame.getRandomizedArray(0)));
+        ((Button) findViewById(R.id.button2)).setText((operatorGame.getRandomizedArray(1)));
+        ((Button) findViewById(R.id.button3)).setText((operatorGame.getRandomizedArray(2)));
+        ((Button) findViewById(R.id.button4)).setText((operatorGame.getRandomizedArray(3)));
     }
 
     private void showSuccessFailure(boolean success) {
