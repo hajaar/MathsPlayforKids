@@ -204,6 +204,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
+
         } else {
             sound = R.raw.wrongbuzzer;
             image = R.drawable.worriedsmiley;
@@ -214,6 +215,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Wrong");
             bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+            final Button button1 = (Button) findViewById(R.id.button1);
         }
         if (soundtoggle) {
             final MediaPlayer mp = MediaPlayer.create(getApplicationContext(), sound);

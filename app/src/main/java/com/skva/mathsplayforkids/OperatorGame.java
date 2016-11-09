@@ -288,7 +288,7 @@ public class OperatorGame {
                 Arrays.sort(tmpArray);
                 choiceArray[3] = "";
                 for (int i = 0; i < 4; i++) {
-                    choiceArray[3] += tmpArray[i] + " ";
+                    choiceArray[3] += " " + tmpArray[i];
                 }
                 checkUnique(tmpArray);
                 question = "Ascending Order" + "\n" + getRandomizedStringArray(tmpArray);
@@ -309,7 +309,7 @@ public class OperatorGame {
                 }
                 choiceArray[3] = "";
                 for (int i = 0; i < 4; i++) {
-                    choiceArray[3] += tmpArray[i] + " ";
+                    choiceArray[3] += " " + tmpArray[i];
                 }
                 checkUnique(tmpArray);
                 question = "Descending Order" + "\n" + getRandomizedStringArray(tmpArray);
@@ -336,7 +336,7 @@ public class OperatorGame {
                     if (j == bigi) {
                         j = j + 1;
                     }
-                    choiceArray[i] = "" + tmpArray[j];
+                    choiceArray[i] = " " + tmpArray[j];
                     j = j + 1;
                 }
 
@@ -363,7 +363,7 @@ public class OperatorGame {
                     if (j == smalli) {
                         j = j + 1;
                     }
-                    choiceArray[i] = "" + tmpArray[j];
+                    choiceArray[i] = " " + tmpArray[j];
                     j = j + 1;
                 }
 
@@ -393,7 +393,7 @@ public class OperatorGame {
             }
             tmparr[j] = tmpArray[i];
         }
-        String returnstring = "";
+        String returnstring = " ";
         for (int i = 0; i < 4; i++) {
             returnstring += tmparr[i] + " ";
         }

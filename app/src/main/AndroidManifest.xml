@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeScreenActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,7 +25,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:parentActivityName=".HomeScreenActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.skva.mathsplayforkids.HomeScreenActivity"/>
@@ -43,8 +43,7 @@
             android:name="io.fabric.ApiKey"
             android:value="bd8acb775a2f24bb12037b984f405642c2bda43d"/>
 
-        <activity android:name=".CountingGameActivity">
-        </activity>
+
     </application>
 
 </manifest>
