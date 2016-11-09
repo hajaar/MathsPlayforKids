@@ -1,9 +1,7 @@
 package com.skva.mathsplayforkids;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -68,6 +66,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_main);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        if (settings.getBoolean("pref_display", true)) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
         soundtoggle = settings.getBoolean("pref_sound", true);
         operatorGame.setTypeofGame(TypeofGame);
         operatorGame.setDifficult_min(0, Integer.parseInt(settings.getString("pref_gt_min", "5")));
@@ -151,14 +154,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
         spinner1.setAdapter(adapter);
 
         spinner1.setOnItemSelectedListener(this);
-        Boolean runonce = settings.getBoolean("RUN_ONCE", true);
-        if (runonce) {
-            onCoachMark();
-            SharedPreferences.Editor editor;
-            editor = settings.edit();
-            editor.putBoolean("RUN_ONCE", false);
-            editor.commit();
-        }
 
 
     }
@@ -265,29 +260,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemSelected
 
         return super.onOptionsItemSelected(item);
     }
-    public void onCoachMark(){
 
-        final Dialog dialog = new Dialog(this, R.style.WalkthroughTheme);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setContentView(R.layout.coach_mark);
-        dialog.setCanceledOnTouchOutside(true);
-        //for dismissing anywhere you touch
-
-        View masterView = dialog.findViewById(R.id.coach_mark_master_view);
-        masterView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Help");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Help");
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-    }
 
 
 }

@@ -12,6 +12,11 @@
             android:key="pref_sound"
             android:summary="@string/pref_sound_summ"
             android:title="@string/pref_sound"/>
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="pref_display"
+            android:summary="@string/pref_display_summ"
+            android:title="@string/pref_display"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="Game Preferences">
         <PreferenceScreen android:title="@string/pref_gt_title">

@@ -42,6 +42,8 @@
     <string name="pref_name_summ">Enter your child \' s name</string>
     <string name="pref_sound">Sound</string>
     <string name="pref_sound_summ">Switch Sound On or Off </string>
+    <string name="pref_display">Always On Display</string>
+    <string name="pref_display_summ">Keeps Display Always On </string>
     <string name="pref_gt_title">Greater Than</string>
     <string name="pref_gt_min_title">Minimum</string>
     <string name="pref_gt_min_summ">Minimum value for this game</string>
